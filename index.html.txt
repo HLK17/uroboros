@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Ураборас — цикл твоего стиля</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Подключаем шрифт для минимализма -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="site-wrapper">
+
+        <!-- Хедер (шапка) -->
+        <header class="header">
+            <div class="container">
+                <div class="header-inner">
+                    <div class="logo">
+                        <a href="#">URABORAS</a>
+                    </div>
+                    <nav class="nav">
+                        <a href="#" class="nav-link" data-page="catalog">Каталог</a>
+                        <a href="#" class="nav-link" data-page="delivery">Доставка</a>
+                        <a href="#" class="nav-link" data-page="contacts">Контакты</a>
+                    </nav>
+                    <div class="cart-icon">
+                        🛒 <span id="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Основной контент (страницы переключаются динамически) -->
+        <main id="app">
+            <!-- Главная страница -->
+            <section id="home-page" class="page active">
+                <section class="hero">
+                    <div class="container">
+                        <h1 class="hero-title">УРАБОРАС</h1>
+                        <p class="hero-subtitle">Цикл твоего стиля</p>
+                        <p class="hero-description">4 линейки. Принты по Warframe, мемы, аниме, минимализм.</p>
+                        <button class="btn btn-primary" id="to-catalog-btn">Перейти в каталог</button>
+                    </div>
+                </section>
+
+                <section class="categories">
+                    <div class="container">
+                        <div class="categories-grid">
+                            <div class="category-card" data-category="silhouette">
+                                <div class="category-icon">🖤</div>
+                                <h3>Силуэт</h3>
+                                <p>Минимализм, авторский крой</p>
+                            </div>
+                            <div class="category-card" data-category="stock">
+                                <div class="category-icon">📦</div>
+                                <h3>В наличии</h3>
+                                <p>Быстрая отправка со склада</p>
+                            </div>
+                            <div class="category-card" data-category="meme">
+                                <div class="category-icon">🤡</div>
+                                <h3>Шут</h3>
+                                <p>Мемы, кринж, Рик и Морти</p>
+                            </div>
+                            <div class="category-card" data-category="warframe">
+                                <div class="category-icon">🎮</div>
+                                <h3>Warframe</h3>
+                                <p>Принты для Тенно</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Страница каталога -->
+            <section id="catalog-page" class="page">
+                <div class="container">
+                    <h2 class="page-title">Каталог</h2>
+                    <div class="catalog-filters">
+                        <button class="filter-btn active" data-filter="all">Все</button>
+                        <button class="filter-btn" data-filter="silhouette">Силуэт</button>
+                        <button class="filter-btn" data-filter="stock">В наличии</button>
+                        <button class="filter-btn" data-filter="meme">Шут</button>
+                        <button class="filter-btn" data-filter="warframe">Warframe</button>
+                    </div>
+                    <div id="catalog-grid" class="catalog-grid">
+                        <!-- Товары будут загружены из JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Страница доставки -->
+            <section id="delivery-page" class="page">
+                <div class="container">
+                    <h2 class="page-title">Доставка и оплата</h2>
+                    <div class="delivery-content">
+                        <p>🚚 <strong>Доставка по всей России</strong></p>
+                        <p>Почта России — от 350₽, 5–14 дней</p>
+                        <p>СДЭК — от 450₽, 2–7 дней</p>
+                        <p>Boxberry — от 400₽, 3–10 дней</p>
+                        <p>💳 <strong>Способы оплаты</strong></p>
+                        <p>Карта при получении (наличные/карта курьеру)</p>
+                        <p>Оплата на карту Сбер / Т-Банк</p>
+                        <p>СБП по номеру телефона</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Страница контактов -->
+            <section id="contacts-page" class="page">
+                <div class="container">
+                    <h2 class="page-title">Контакты</h2>
+                    <div class="contacts-content">
+                        <p>📱 <strong>Telegram бот:</strong> @uroboros_bot</p>
+                        <p>📧 <strong>Email:</strong> shop@uroboros.ru</p>
+                        <p>🎵 <strong>TikTok:</strong> @uroboros_shop</p>
+                        <p>💬 <strong>VK:</strong> vk.com/uroboros</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Модальное окно корзины -->
+            <div id="cart-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Корзина</h2>
+                    <div id="cart-items"></div>
+                    <div class="cart-total">
+                        <strong>Итого: <span id="cart-total-sum">0</span> ₽</strong>
+                    </div>
+                    <button id="checkout-btn" class="btn btn-primary">Оформить заказ</button>
+                </div>
+            </div>
+
+            <!-- Модальное окно оформления заказа -->
+            <div id="checkout-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Оформление заказа</h2>
+                    <form id="order-form">
+                        <input type="text" placeholder="Ваше имя" id="order-name" required>
+                        <input type="tel" placeholder="Телефон" id="order-phone" required>
+                        <input type="text" placeholder="Адрес доставки" id="order-address" required>
+                        <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+                    </form>
+                    <p id="order-status"></p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>© Ураборас 2025</p>
+                <div class="social-links">
+                    <a href="#">TikTok</a> | <a href="#">Telegram</a> | <a href="#">VK</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
